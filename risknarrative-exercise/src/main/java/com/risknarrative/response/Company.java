@@ -1,10 +1,12 @@
 package com.risknarrative.response;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
+@Builder
 public class Company {
     private String company_number;
     private String company_type;

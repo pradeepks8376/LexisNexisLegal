@@ -1,12 +1,11 @@
-package com.risknarrative.response;
+package com.risknarrative.model;
 
-import com.risknarrative.model.Address;
-import lombok.Builder;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 @Data
-@Builder
-public class Officer {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class Items {
     private Address address;
     private String name;
     private String appointed_on;

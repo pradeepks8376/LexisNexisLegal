@@ -1,7 +1,7 @@
 package com.risknarrative.controller;
 
+import com.risknarrative.constant.Constants;
 import com.risknarrative.request.CompanySearchRequest;
-import com.risknarrative.response.Company;
 import com.risknarrative.response.CompanySearchResponse;
 import com.risknarrative.service.TruProxyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,17 +13,11 @@ public class CompanyController {
     @Autowired
     private TruProxyService truProxyService;
 
-    @PostMapping("/search")
-    public CompanySearchResponse searchCompany(@RequestHeader("x-api-key") String apiKey,
+    @PostMapping(Constants.SEARCH_URI)
+    public CompanySearchResponse searchCompany(@RequestHeader(Constants.API_KEY) String apiKey,
                                  @RequestParam boolean isActive,
                                  @RequestBody CompanySearchRequest request) {
-        String companyName = request.getCompanyName();
-        String companyNumber = request.getCompanyNumber();
-        CompanySearchResponse company = truProxyService.getCompanyDetails(apiKey, companyName, companyNumber, isActive);
-        Company cmp = new Company();
-        cmp.setOfficers(truProxyService.getCompanyOfficers(apiKey, companyNumber));
-        System.out.println("print officers: "+cmp);
-        return company;
+        return truProxyService.getCompanyDetails(apiKey, request.getCompanyName(), request.getCompanyNumber(), isActive);
     }
 }
 
